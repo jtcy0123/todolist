@@ -37,10 +37,10 @@ class Task < ActiveRecord::Base
 
   def self.list_task
     list = List.all
-    print "No.".ljust(4) + "Description".ljust(25) + "Status".ljust(8) + "Belongs To List\n"
-    print "===".ljust(4) + "===========".ljust(25) + "======".ljust(8) + "===============\n"
+    print "No.".ljust(4) + "Description".ljust(25) + "Status".ljust(10) + "Belongs To List\n"
+    print "===".ljust(4) + "===========".ljust(25) + "======".ljust(10) + "===============\n"
     Task.all.each do |task|
-      print "#{task.number}".ljust(4) + "#{task.description}".ljust(25) + "#{task.status}".ljust(8)
+      print "#{task.number}".ljust(4) + "#{task.description}".ljust(25) + "#{task.status}".ljust(10)
       if list.find_by(id: task.list_id) != nil
         print list.find_by(id: task.list_id).title + "\n"
       else
