@@ -3,7 +3,6 @@ class List < ActiveRecord::Base
   def self.create_list(list_title)
     List.create(title: list_title[1])
     puts "New list created!"
-    p list_title[3]
   end
 
   def self.show_lists
