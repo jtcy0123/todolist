@@ -44,7 +44,7 @@ class Task < ActiveRecord::Base
       if list.find_by(id: task.list_id) != nil
         print list.find_by(id: task.list_id).title + "\n"
       else
-        print "NOT ASSIGN YET\n"
+        print "-NOT ASSIGN YET-\n"
       end
     end
   end
