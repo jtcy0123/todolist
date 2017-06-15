@@ -9,7 +9,7 @@ class Task < ActiveRecord::Base
     list = List.find_by(title: details.last)
     if list != nil
       numbers.each do |num|
-        task = Task.find_by(number: num)
+        task = Task.all[num.to_i-1]
         task.update(list_id: list.id)
       end
       puts "Added tasks to list!"
@@ -22,13 +22,13 @@ class Task < ActiveRecord::Base
     list = List.find_by(title: task_details[2])
     if task_details.length == 3
       if list != nil
-        Task.create(number: Task.all.count+1, description: task_details[1], status: "undone", list_id: list.id)
+        Task.create(description: task_details[1], status: "undone", list_id: list.id)
         puts "Task saved!"
       else
         puts "List titled '#{task_details[2]}' is not found. Are you sure that this is the correct list title?"
       end
     elsif task_details.length == 2
-      Task.create(number: Task.all.count+1, description: task_details[1], status: "undone")
+      Task.create(description: task_details[1], status: "undone")
       puts "Task saved but not assigned to any list yet!"
     else
       "Invalid input!"
@@ -39,8 +39,8 @@ class Task < ActiveRecord::Base
     list = List.all
     print "No.".ljust(4) + "Description".ljust(25) + "Status".ljust(10) + "Belongs To List\n"
     print "===".ljust(4) + "===========".ljust(25) + "======".ljust(10) + "===============\n"
-    Task.all.each do |task|
-      print "#{task.number}".ljust(4) + "#{task.description}".ljust(25) + "#{task.status}".ljust(10)
+    Task.all.each_with_index do |task,index|
+      print "#{index+1}".ljust(4) + "#{task.description}".ljust(25) + "#{task.status}".ljust(10)
       if list.find_by(id: task.list_id) != nil
         print list.find_by(id: task.list_id).title + "\n"
       else
@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
   end
 
   def self.update_task(task_details)
-    task = Task.find_by(number: task_details[1])
+    task = Task.all[task_details[1].to_i-1]
     if task != nil
       if task_details.length == 4
         task.update(description: task_details[2], status: task_details[3])
@@ -70,13 +70,10 @@ class Task < ActiveRecord::Base
   end
 
   def self.remove_task(task_num)
-    task = Task.find_by(number: task_num[1])
+    task = Task.all[task_num[1].to_i-1]
     if task != nil
       task.delete
       puts "Task removed!"
-      Task.all.each_with_index do |task,index|
-        task.update(number: index+1)
-      end
     else
       puts "Task number #{task_num[1]} is not found. Are you sure that this is the right task number?"
     end

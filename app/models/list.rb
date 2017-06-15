@@ -1,8 +1,12 @@
 class List < ActiveRecord::Base
 
   def self.create_list(list_title)
-    List.create(title: list_title[1])
-    puts "New list created!"
+    if list_title[1] == nil
+      puts "CREATE WHAT?!"
+    else
+      List.create(title: list_title[1])
+      puts "New list created!"
+    end
   end
 
   def self.show_lists
