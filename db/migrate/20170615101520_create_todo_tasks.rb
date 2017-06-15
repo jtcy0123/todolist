@@ -1,8 +1,9 @@
 require_relative '../../config/application'
 
-class CreateTodoList < ActiveRecord::Migration[4.2]
+class CreateTodoTasks < ActiveRecord::Migration[4.2]
   def change
-    create_table :list do |t|
+    create_table :tasks do |t|
+      t.integer :number
       t.string :description
       t.string :status
       t.timestamps

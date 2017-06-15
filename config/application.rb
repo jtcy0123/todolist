@@ -17,4 +17,4 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 
 # Establish database connection
 ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
-                                        :database => DB_PATH
+  :database => DB_PATH
