@@ -9,7 +9,7 @@ class App
       List.create_list(@input)
     when "assign"  #to assign task(s) to a list eg. ruby todo.rb --assign 1,2,4 "Shopping"
       Task.assign_to_list(@input)
-    when "add"  #to add a new task eg. ruby todo.rb --add "walk the dog"
+    when "add"  #to add a new task eg. ruby todo.rb --add "walk the dog" "Shopping"
       Task.add_task(@input)
     when "list"
       if @input[1] == "tasks"  #list out all the tasks eg. ruby todo.rb --list tasks

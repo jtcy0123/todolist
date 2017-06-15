@@ -16,12 +16,16 @@ class List < ActiveRecord::Base
 
   def self.list_tasks(list_title)
     list = List.find_by(title: list_title[1])
-    tasks = Task.where(list_id: list.id)
-    puts "This is your #{list.title} list!"
-    print "No.".ljust(4) + "Description".ljust(20) + "Status\n"
-    print "===".ljust(4) + "===========".ljust(20) + "======\n"
-    tasks.each_with_index do |task,index|
-      print "#{index+1}".ljust(4) + "#{task.description}".ljust(20) + "#{task.status}\n"
+    if list != nil
+      tasks = Task.where(list_id: list.id)
+      puts "This is your #{list.title} list!"
+      print "No.".ljust(4) + "Description".ljust(20) + "Status\n"
+      print "===".ljust(4) + "===========".ljust(20) + "======\n"
+      tasks.each_with_index do |task,index|
+        print "#{index+1}".ljust(4) + "#{task.description}".ljust(20) + "#{task.status}\n"
+      end
+    else
+      puts "List titled '#{list_title[1]}' is not found. Are you sure that this is the correct list title?"
     end
   end
 
