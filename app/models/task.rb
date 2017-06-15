@@ -17,10 +17,11 @@ class Task < ActiveRecord::Base
   end
 
   def self.list_task
-    print "No.".ljust(4) + "Description".ljust(20) + "Status\n"
-    print "===".ljust(4) + "===========".ljust(20) + "======\n"
+    list = List.all
+    print "No.".ljust(4) + "Description".ljust(20) + "Status".ljust(8) + "Belongs To\n"
+    print "===".ljust(4) + "===========".ljust(20) + "======".ljust(8) + "==========\n"
     Task.all.each do |task|
-      print "#{task.number}".ljust(4) + "#{task.description}".ljust(20) + "#{task.status}\n"
+      print "#{task.number}".ljust(4) + "#{task.description}".ljust(20) + "#{task.status}".ljust(8) + list.find_by(id: task.list_id).title + "\n"
     end
   end
 
